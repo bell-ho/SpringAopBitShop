@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="goods">
+  <select id="list" resultType="GoodsVo">
+    select * from goods order by goodsno
+  </select>
+  
+  <select id="detail" resultType="GoodsVo">
+  	select * from goods where goodsno=#{goodsno}
+  </select>
+  
+  <insert id="insert">
+  	insert into goods values(seq_goods.nextval,#{goodsname},#{fname},#{qty},#{price})
+  </insert>
+  
+  <delete id="delete">
+  	delete from goods where goodsno=#{goodsno}
+  </delete>
+  
+</mapper>

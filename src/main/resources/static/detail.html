@@ -7,17 +7,13 @@
 	src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
 	$(function(){
-		$("#btnAjax").click(function(){
-			$.ajax("/hello.do",{success:function(data){
-				$("#msg").html(data);
-			}})
-		})
+		var str = location.search;
+		str = str.substring(str.indexOf("="));
+		alert(str)
 	})
 </script>
 </head>
 <body>
-	<button id="btnAjax">Ajax요청</button>
-	<h2 id="msg"></h2>
-	<a href="detail.html?no=10">상세보기</a>
+	<h2>상세보기</h2>
 </body>
 </html>

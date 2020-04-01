@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$.ajax("/listGoods.do", {success : function(data) { // ( {},{} ) 이상태로 오고
+			var tr1 = $("<tr><td>상품번호</td><td>상품이름</td><td>사진</td><td>수량</td><td>가격</td><tr/>")
+			$("#tb").append(tr1)
+// 				alert(data) {},{} 뽑아서 보여줄땐 이렇게 보여줌
+				$.each(data, function(idx, item) { //idx는 {idx1},{idx2} 이고 item도 아직 객체상태
+					var tr = $("<tr></tr>")
+					$.each(item, function(i, g) { //item객체를 한번더 쪼개줘야함
+						var td = $("<td\>").append(g)
+							tr.append(td)
+							tr.attr("idx",idx)
+							$("#tb").append(tr)
+					})
+				})
+					$("tr").click(function(){
+						var dd = $(this).attr("idx")
+// 						alert(data[dd].goodsno)
+						$("#goodsno").val(data[dd].goodsno)
+						$("#goodsname").append("idx").val(data[dd].goodsname)
+						$("#fname").append("idx").val(data[dd].fname)
+						$("#qty").append("idx").val(data[dd].qty)
+						$("#price").append("idx").val(data[dd].price)
+					})
+			}
+		})
+		$("#insert").click(function(){
+			var g = $("#forminsert").serialize();
+			$.ajax("/insertGoods.do",{data:g, success:function(data){ //반환된 1을 가지고 뭘하는지 생각안남
+
+			}})
+		})
+		$("#delete").click(function(){
+			var goodsno = {goodsno:$("#goodsno").val()};
+			$.ajax("/deleteGoods.do",{data:goodsno, success:function(data){
+				
+			}})
+		})
+	})
+</script>
+</head>
+<body>
+	<h2>상품정보</h2>
+	<hr>
+	<table id="tb" border="1" width="80%"></table>
+	
+	
+	<h2>상품등록</h2>
+	<form  method="get" id="forminsert">
+		상품이름 : <input type="text" name="goodsname"><br>
+		상품사진 : <input type="text" name="fname"><br>
+		상품수량 : <input type="number" name="qty"><br>
+		상품가격 : <input type="number" name="price"><br>
+		<input type="submit" value="등록" id="insert"><br>
+	</form>
+	
+	<h2>상품상세</h2>
+	<form  method="get" id="formdetail">
+		상품번호 : <input type="number" name="goodsno" id="goodsno"><br>
+		상품이름 : <input type="text" name="goodsname" id="goodsname"><br>
+		상품사진 : <input type="text" name="fname" id="fname"><br>
+		상품수량 : <input type="number" name="qty" id="qty"><br>
+		상품가격 : <input type="number" name="price" id="price"><br>
+		<input type="submit" value="삭제" id="delete">
+	</form>
+		
+	
+</body>
+</html>

@@ -1,0 +1,12 @@
+create user c##aop identified by aop
+
+grant connect, resource to c##aop;
+grant connect, resource, dba to c##aop;
+
+create table goods(
+	goodsno number primary key,
+	goodsname varchar2(20),
+	fname varchar2(20),
+	qty number,
+	price number
+);
